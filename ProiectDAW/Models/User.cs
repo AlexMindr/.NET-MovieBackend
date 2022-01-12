@@ -18,6 +18,6 @@ namespace ProiectDAW.Models
         [JsonIgnore]
         public string PasswordHash { get; set; }
 
-        public Role Role { get; set; }
+        public Admin Admin { get; set; }
     }
 }

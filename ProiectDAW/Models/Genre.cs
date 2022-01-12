@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Models
 {
-    public class Role: BaseEntity
+    public class Genre:BaseEntity
     {
         public string Name { get; set; }
-        
     }
 }

@@ -8,6 +8,6 @@ namespace ProiectDAW.Models
 {
     public class DataBaseModel: BaseEntity
     {
-
+        public string Title { get; set; }
     }
 }

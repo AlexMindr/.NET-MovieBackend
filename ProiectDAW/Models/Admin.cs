@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Models
 {
-    public class Role: BaseEntity
+    public class Admin:BaseEntity
     {
-        public string Name { get; set; }
-        
+        public string Type { get; set; }
+        public User User { get; set; }
+        public Guid UserId { get; set; }
     }
 }
