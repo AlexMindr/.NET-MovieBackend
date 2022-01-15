@@ -42,7 +42,7 @@ namespace ProiectDAW.Controllers
             var userToCreate = new User
             {
                 FirstName = user.FirstName,
-                Role = Role.User,
+                //Role = Role.User,
                 PasswordHash = BCryptNet.HashPassword(user.Password)
             };
 
@@ -50,7 +50,7 @@ namespace ProiectDAW.Controllers
             return Ok();
         }
 
-        [Authorization(Role.Admin)]
+        //[Authorization(Role.Admin)]
         [HttpGet]
         public IActionResult GetAllUsers()
         {

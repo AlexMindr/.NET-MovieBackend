@@ -1,4 +1,4 @@
-﻿using ProiectDAW.Models;
+﻿/*using ProiectDAW.Models;
 using ProiectDAW.Repositories.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -56,3 +56,4 @@ namespace ProiectDAW.Repositories.DatabaseRepository
         }
     }
 }
+*/

@@ -1,5 +1,4 @@
-﻿using ProiectDAW.Data;
-using ProiectDAW.Models;
+﻿using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
 using ProiectDAW.Utilities;
 using ProiectDAW.Utilities.JWTUtilis;
