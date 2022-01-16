@@ -21,6 +21,7 @@ namespace ProiectDAW.Models
         public string? Language { get; set; }
         public DateTime? ReleaseDate { get; set; }
 
+        public float? Rating { get; set; }
         public virtual Trailer Trailer { get; set; }
 
         public virtual ICollection<MovieGenre> MovieGenres { get; set; }

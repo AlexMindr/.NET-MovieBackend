@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProiectDAW.Models;
+using Microsoft.Data.SqlClient;
 
 namespace ProiectDAW.Repositories.GenericRepository
 {
@@ -43,25 +44,11 @@ namespace ProiectDAW.Repositories.GenericRepository
 
         // Create
 
-        public void Create(TEntity entity)
-        {
-            _table.Add(entity);
-        }
-
         public async Task CreateAsync(TEntity entity)
         {
              await _table.AddAsync(entity);
         }
 
-        public void CreateRange(IEnumerable<TEntity> entities)
-        {
-            _table.AddRange(entities);
-        }
-
-        public async Task CreateRangeAsync(IEnumerable<TEntity> entities)
-        {
-            await _table.AddRangeAsync(entities);
-        }
 
         // Update
 
@@ -70,10 +57,6 @@ namespace ProiectDAW.Repositories.GenericRepository
             _table.Update(entity);
         }
 
-        public void UpdateRange(IEnumerable<TEntity> entities)
-        {
-            _table.UpdateRange(entities);
-        }
 
         // Delete
 
@@ -82,11 +65,7 @@ namespace ProiectDAW.Repositories.GenericRepository
             _table.Remove(entity);
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
-        {
-            _table.RemoveRange(entities);
-        }
-
+        
         // Find
 
         public TEntity FindById(object id)
@@ -114,11 +93,11 @@ namespace ProiectDAW.Repositories.GenericRepository
                 return _context.SaveChanges() > 0;
             //}
             //catch(SqlException ex)
-            //{
-            //    Console.WriteLine(ex);
+           // {
+              //  Console.WriteLine(ex);
             //}
 
-            // return false;
+            //return false;
         }
 
         public async Task<bool> SaveAsync()

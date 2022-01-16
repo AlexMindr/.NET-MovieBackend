@@ -1,4 +1,4 @@
-﻿using ProiectDAW.Models;
+﻿/*using ProiectDAW.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -38,3 +38,4 @@ namespace ProiectDAW.Utilities.Attributes
         }
     }
 }
+*/

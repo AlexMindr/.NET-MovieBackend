@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Models
 {
-    public class WatchList
+    public class WatchList:Entity 
     {
 
         public Guid MovieId { get; set; }
