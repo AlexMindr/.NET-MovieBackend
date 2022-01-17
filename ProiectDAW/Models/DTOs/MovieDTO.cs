@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Data.Repos.DatabaseRepo
+namespace ProiectDAW.Models.DTOs
 {
-    public class WatchListRepository
+    public class MovieDTO
     {
     }
 }

@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.DatabaseRepo
 {
-    interface IWatchListRepository 
+    public class GenreRepository:GenericRepository<Genre>, IGenreRepository
     {
+        public GenreRepository(ProjectContext context) : base(context)
+        {
+
+        }
+
     }
 }

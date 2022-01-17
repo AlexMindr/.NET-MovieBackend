@@ -8,9 +8,9 @@ namespace ProiectDAW.Controllers
 {
     public class WatchListsController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+          //  return View();
+        //}
     }
 }

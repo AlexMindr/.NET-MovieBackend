@@ -8,9 +8,9 @@ namespace ProiectDAW.Controllers
 {
     public class MoviesController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+           // return View();
+        //}
     }
 }

@@ -2,7 +2,7 @@
 using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
 using ProiectDAW.Services;
-using ProiectDAW.Utilities.Attributes;
+//using ProiectDAW.Utilities.Attributes;
 using BCryptNet = BCrypt.Net.BCrypt;
 using System;
 using System.Collections.Generic;
