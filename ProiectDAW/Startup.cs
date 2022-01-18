@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Utilities;
-using ProiectDAW.Services;
+using ProiectDAW.Data.Services;
 using ProiectDAW.Utilities.JWTUtilis;
 
 

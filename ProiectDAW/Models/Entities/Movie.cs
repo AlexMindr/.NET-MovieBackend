@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Models
+namespace ProiectDAW.Models.Entities
 {
     public class Movie: BaseEntity 
     {   
@@ -20,6 +20,7 @@ namespace ProiectDAW.Models
         public string? PosterPath { get; set; }
         public string? Language { get; set; }
         public DateTime? ReleaseDate { get; set; }
+        public int? TmdbId { get; set; }
 
         public float? Rating { get; set; }
         public virtual Trailer Trailer { get; set; }

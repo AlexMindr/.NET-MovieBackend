@@ -1,4 +1,4 @@
-﻿using ProiectDAW.Services;
+﻿using ProiectDAW.Data.Services;
 using ProiectDAW.Utilities.JWTUtilis;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

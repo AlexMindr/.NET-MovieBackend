@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Models
+namespace ProiectDAW.Models.Entities
 {
     public class Trailer
     {

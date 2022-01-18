@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Models;
+using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Data.Repos.DatabaseRepo
+namespace ProiectDAW.Data.Repos.WatchListRepo
 {
     public class WatchListRepository
     {

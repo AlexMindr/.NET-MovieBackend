@@ -1,10 +1,11 @@
 ﻿using ProiectDAW.Models;
+using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Data.Repos.DatabaseRepo
+namespace ProiectDAW.Data.Repos.MovieGenreRepo
 {
     interface IMovieGenreRepository
     {
@@ -29,4 +30,4 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
         Task<bool> SaveAsync();
     }
 }
-}
+

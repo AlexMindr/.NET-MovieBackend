@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
-using ProiectDAW.Services;
+using ProiectDAW.Data.Services;
 //using ProiectDAW.Utilities.Attributes;
 using BCryptNet = BCrypt.Net.BCrypt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectDAW.Models.Entities;
 
 namespace ProiectDAW.Controllers
 {

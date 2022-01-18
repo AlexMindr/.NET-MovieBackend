@@ -1,34 +1,33 @@
-﻿using ProiectDAW.Models.Base;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ProiectDAW.Models;
+using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProiectDAW.Models;
-using Microsoft.Data.SqlClient;
 
-namespace ProiectDAW.Repositories.GenericRepo
+namespace ProiectDAW.Data.Repos.MovieGenreRepo
 {
-    public class GenericRepository<TEntity>: IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class MovieGenreRepository
     {
         protected readonly ProjectContext _context;
-        protected readonly DbSet<TEntity> _table;
+        protected readonly DbSet<MovieGenre> _table;
 
-        public GenericRepository(ProjectContext context)
+        public MovieGenreRepository(ProjectContext context)
         {
             _context = context;
-            _table = _context.Set<TEntity>();
+            _table = _context.Set<MovieGenre>();
         }
 
         // Get all
 
-        public async Task<List<TEntity>> GetAll()
+        public async Task<List<MovieGenre>> GetAll()
         {
             // the select to the db 
             return await _table.AsNoTracking().ToListAsync();
         }
 
-        public IQueryable<TEntity> GetAllAsQueryable()
+        public IQueryable<MovieGenre> GetAllAsQueryable()
         {
             return _table.AsNoTracking();
 
@@ -44,15 +43,15 @@ namespace ProiectDAW.Repositories.GenericRepo
 
         // Create
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task CreateAsync(MovieGenre entity)
         {
-             await _table.AddAsync(entity);
+            await _table.AddAsync(entity);
         }
 
 
         // Update
 
-        public void Update(TEntity entity)
+        public void Update(MovieGenre entity)
         {
             _table.Update(entity);
         }
@@ -60,15 +59,15 @@ namespace ProiectDAW.Repositories.GenericRepo
 
         // Delete
 
-        public void Delete(TEntity entity)
+        public void Delete(MovieGenre entity)
         {
             _table.Remove(entity);
         }
 
-        
+
         // Find
 
-        public TEntity FindById(object id)
+        public MovieGenre FindById(object id)
         {
             return _table.Find(id);
 
@@ -76,7 +75,7 @@ namespace ProiectDAW.Repositories.GenericRepo
             // return _table.FirstOrDefault(x=> x.Id.Equals(id));
         }
 
-        public async  Task<TEntity> FindByIdAsync(object id)
+        public async Task<MovieGenre> FindByIdAsync(object id)
         {
             return await _table.FindAsync(id);
 
@@ -90,11 +89,11 @@ namespace ProiectDAW.Repositories.GenericRepo
         {
             //try
             //{
-                return _context.SaveChanges() > 0;
+            return _context.SaveChanges() > 0;
             //}
             //catch(SqlException ex)
-           // {
-              //  Console.WriteLine(ex);
+            // {
+            //  Console.WriteLine(ex);
             //}
 
             //return false;
@@ -115,3 +114,5 @@ namespace ProiectDAW.Repositories.GenericRepo
         }
     }
 }
+    
+

@@ -8,8 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectDAW.Models.Entities;
 
-namespace ProiectDAW.Services
+namespace ProiectDAW.Data.Services
 {
     public class UserService : IUserService
     {

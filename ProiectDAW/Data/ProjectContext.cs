@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Models;
+using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,7 @@ namespace ProiectDAW
     public class ProjectContext : DbContext
 
     {
-        public DbSet<DataBaseModel> DataBaseModels { get; set; }
-
+        
         // One to Many
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -91,6 +91,34 @@ namespace ProiectDAW
                         .HasOne<Genre>(mg => mg.Genre)
                         .WithMany(genre => genre.MovieGenres)
                         .HasForeignKey(mg => mg.GenreId);
+
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role { Id = 1, Name="Admin" },
+                new Role { Id = 2, Name="User" }
+            );
+
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre { Id = 28, Name = "Action" },
+                new Genre { Id = 12, Name = "Adventure" },
+                new Genre { Id = 16, Name = "Animation" },
+                new Genre { Id = 35, Name = "Comedy" },
+                new Genre { Id = 80, Name = "Crime" },
+                new Genre { Id = 99, Name = "Documentary" },
+                new Genre { Id = 18, Name = "Drama" },
+                new Genre { Id = 10751, Name = "Family" },
+                new Genre { Id = 14, Name = "Fantasy" },
+                new Genre { Id = 36, Name = "History" },
+                new Genre { Id = 27, Name = "Horror" },
+                new Genre { Id = 10402, Name = "Music" },
+                new Genre { Id = 9648, Name = "Mystery" },
+                new Genre { Id = 10749, Name = "Romance" },
+                new Genre { Id = 878, Name = "Science Fiction" },
+                new Genre { Id = 10770, Name = "TV Movie" },
+                new Genre { Id = 53, Name = "Thriller" },
+                new Genre { Id = 10752, Name = "War" },
+                new Genre { Id = 37, Name = "Western" }
+            );
 
             base.OnModelCreating(modelBuilder);
         }

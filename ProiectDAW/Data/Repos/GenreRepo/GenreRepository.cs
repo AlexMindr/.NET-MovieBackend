@@ -1,32 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Models;
+using ProiectDAW.Models.Entities;
+using ProiectDAW.Repositories.GenericRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Data.Repos.DatabaseRepo
+namespace ProiectDAW.Data.Repos.GenreRepo
 {
-    public class MovieGenreRepository
+    public class GenreRepository
     {
         protected readonly ProjectContext _context;
-        protected readonly DbSet<MovieGenre> _table;
+        protected readonly DbSet<Genre> _table;
 
-        public MovieGenreRepository(ProjectContext context)
+        public GenreRepository(ProjectContext context)
         {
             _context = context;
-            _table = _context.Set<MovieGenre>();
+            _table = _context.Set<Genre>();
         }
 
         // Get all
 
-        public async Task<List<MovieGenre>> GetAll()
+        public async Task<List<Genre>> GetAll()
         {
             // the select to the db 
             return await _table.AsNoTracking().ToListAsync();
         }
 
-        public IQueryable<MovieGenre> GetAllAsQueryable()
+        public IQueryable<Genre> GetAllAsQueryable()
         {
             return _table.AsNoTracking();
 
@@ -42,7 +44,7 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
 
         // Create
 
-        public async Task CreateAsync(MovieGenre entity)
+        public async Task CreateAsync(Genre entity)
         {
             await _table.AddAsync(entity);
         }
@@ -50,7 +52,7 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
 
         // Update
 
-        public void Update(MovieGenre entity)
+        public void Update(Genre entity)
         {
             _table.Update(entity);
         }
@@ -58,7 +60,7 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
 
         // Delete
 
-        public void Delete(MovieGenre entity)
+        public void Delete(Genre entity)
         {
             _table.Remove(entity);
         }
@@ -66,7 +68,7 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
 
         // Find
 
-        public MovieGenre FindById(object id)
+        public Genre FindById(object id)
         {
             return _table.Find(id);
 
@@ -74,7 +76,7 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
             // return _table.FirstOrDefault(x=> x.Id.Equals(id));
         }
 
-        public async Task<MovieGenre> FindByIdAsync(object id)
+        public async Task<Genre> FindByIdAsync(object id)
         {
             return await _table.FindAsync(id);
 
@@ -111,7 +113,6 @@ namespace ProiectDAW.Data.Repos.DatabaseRepo
 
             // return false;
         }
+
     }
 }
-    
-

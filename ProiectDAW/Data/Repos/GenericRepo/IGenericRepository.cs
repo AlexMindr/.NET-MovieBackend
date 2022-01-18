@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Repositories.GenericRepository
+namespace ProiectDAW.Repositories.GenericRepo
 {
     public interface IGenericRepository<TEntity> where TEntity: BaseEntity
     {

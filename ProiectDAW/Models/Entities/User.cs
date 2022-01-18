@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace ProiectDAW.Models
+namespace ProiectDAW.Models.Entities
 {
     public class User: BaseEntity
     {
@@ -24,7 +24,7 @@ namespace ProiectDAW.Models
         public string PasswordHash { get; set; }
 
         public virtual ICollection<WatchList> WatchLists { get; set; }
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
         public virtual Role Role { get; set; }
 
     }
