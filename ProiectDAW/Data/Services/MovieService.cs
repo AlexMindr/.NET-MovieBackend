@@ -8,17 +8,25 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Services
 {
-    public class MovieServicecs:IMovieService
+    public class MovieService:IMovieService
     {
-        private readonly MovieRepository _movie;
+        public IMovieRepository _movie;
 
-        public MovieServicecs(MovieRepository movie)
+        public MovieService(IMovieRepository movie)
         {
             _movie = movie;
         }
+
         public async Task CreateAsync(MovieDTO entity)
         {
-            
+            var genres = new List<MovieGenre>();
+            for (int i = 0; i < entity.Genresofmovie.Count; i++)
+            {
+                var genre = new MovieGenre { GenreId = entity.Genresofmovie.ToArray()[i] };
+                genres.Add(genre);
+            }
+
+
             Movie movie = new Movie
             {
                 Adult = entity.Adult,
@@ -31,11 +39,13 @@ namespace ProiectDAW.Data.Services
                 TmdbId = entity.TmdbId,
                 Rating = null,
                 Trailer = new Trailer { Path = entity.TrailerPath },
-                MovieGenres = (ICollection<MovieGenre>)entity.Genresofmovie
+                MovieGenres = genres
+                 
             };
 
         
             await _movie.CreateAsync(movie);
+            await _movie.SaveAsync();
         }
 
         

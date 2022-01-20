@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.TrailerRepo
 {
-    interface ITrailerRepository
+    public interface ITrailerRepository
     {
         // Get all data
         Task<List<Trailer>> GetAll();

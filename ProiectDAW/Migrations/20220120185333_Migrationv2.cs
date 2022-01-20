@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProiectDAW.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Migrationv2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,28 +11,15 @@ namespace ProiectDAW.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "DataBaseModels",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DataBaseModels", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Genres",
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,6 +39,8 @@ namespace ProiectDAW.Migrations
                     PosterPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Language = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TmdbId = table.Column<int>(type: "int", nullable: true),
+                    Rating = table.Column<float>(type: "real", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -65,10 +54,11 @@ namespace ProiectDAW.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +71,7 @@ namespace ProiectDAW.Migrations
                 columns: table => new
                 {
                     MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,7 +125,7 @@ namespace ProiectDAW.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -180,6 +170,43 @@ namespace ProiectDAW.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 28, "Action" },
+                    { 37, "Western" },
+                    { 10752, "War" },
+                    { 53, "Thriller" },
+                    { 10770, "TV Movie" },
+                    { 878, "Science Fiction" },
+                    { 10749, "Romance" },
+                    { 9648, "Mystery" },
+                    { 10402, "Music" },
+                    { 27, "Horror" },
+                    { 14, "Fantasy" },
+                    { 10751, "Family" },
+                    { 18, "Drama" },
+                    { 99, "Documentary" },
+                    { 80, "Crime" },
+                    { 35, "Comedy" },
+                    { 16, "Animation" },
+                    { 12, "Adventure" },
+                    { 36, "History" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "dbo",
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_MovieGenres_GenreId",
                 schema: "dbo",
@@ -201,9 +228,6 @@ namespace ProiectDAW.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "DataBaseModels");
-
             migrationBuilder.DropTable(
                 name: "MovieGenres",
                 schema: "dbo");

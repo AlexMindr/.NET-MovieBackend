@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Services
 {
-    interface IMovieService
+    public interface IMovieService
     {
         Task CreateAsync(MovieDTO entity);
         IEnumerable<MovieDTO> GetAllMovies();

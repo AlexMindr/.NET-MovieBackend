@@ -13,7 +13,11 @@ namespace ProiectDAW
     public class ProjectContext : DbContext
 
     {
-        
+        public ProjectContext(DbContextOptions<ProjectContext> options) : base(options)
+        {
+
+        }
+
         // One to Many
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -37,12 +41,6 @@ namespace ProiectDAW
         public DbSet<MovieGenre> MovieGenres { get; set; }
 
         
-        
-        
-        public ProjectContext(DbContextOptions<ProjectContext> options) : base(options)
-        {
-
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

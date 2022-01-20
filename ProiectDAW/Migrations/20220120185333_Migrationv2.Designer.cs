@@ -10,8 +10,8 @@ using ProiectDAW;
 namespace ProiectDAW.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20220116175426_UpdatedMovie")]
-    partial class UpdatedMovie
+    [Migration("20220120185333_Migrationv2")]
+    partial class Migrationv2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,33 +21,12 @@ namespace ProiectDAW.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ProiectDAW.Models.DataBaseModel", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Genre", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DataBaseModels");
-                });
-
-            modelBuilder.Entity("ProiectDAW.Models.Genre", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DateCreated")
                         .ValueGeneratedOnAdd()
@@ -64,9 +43,106 @@ namespace ProiectDAW.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 28,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Animation"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            Name = "Crime"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            Name = "Documentary"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 10751,
+                            Name = "Family"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 10402,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 9648,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 10749,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 878,
+                            Name = "Science Fiction"
+                        },
+                        new
+                        {
+                            Id = 10770,
+                            Name = "TV Movie"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 10752,
+                            Name = "War"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "Western"
+                        });
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Movie", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Movie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +171,7 @@ namespace ProiectDAW.Migrations
                     b.Property<string>("PosterPath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Rating")
+                    b.Property<float?>("Rating")
                         .HasColumnType("real");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -105,18 +181,21 @@ namespace ProiectDAW.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TmdbId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Movies", "dbo");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.MovieGenre", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.MovieGenre", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GenreId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
 
                     b.HasKey("MovieId", "GenreId");
 
@@ -125,11 +204,12 @@ namespace ProiectDAW.Migrations
                     b.ToTable("MovieGenres", "dbo");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Role", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DateCreated")
                         .ValueGeneratedOnAdd()
@@ -146,9 +226,21 @@ namespace ProiectDAW.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Trailer", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Trailer", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -169,7 +261,7 @@ namespace ProiectDAW.Migrations
                     b.ToTable("Trailers", "dbo");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.User", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,8 +288,8 @@ namespace ProiectDAW.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -210,7 +302,7 @@ namespace ProiectDAW.Migrations
                     b.ToTable("Users", "dbo");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.WatchList", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.WatchList", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -231,15 +323,15 @@ namespace ProiectDAW.Migrations
                     b.ToTable("WatchLists", "dbo");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.MovieGenre", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.MovieGenre", b =>
                 {
-                    b.HasOne("ProiectDAW.Models.Genre", "Genre")
+                    b.HasOne("ProiectDAW.Models.Entities.Genre", "Genre")
                         .WithMany("MovieGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProiectDAW.Models.Movie", "Movie")
+                    b.HasOne("ProiectDAW.Models.Entities.Movie", "Movie")
                         .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -250,20 +342,20 @@ namespace ProiectDAW.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Trailer", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Trailer", b =>
                 {
-                    b.HasOne("ProiectDAW.Models.Movie", "Movie")
+                    b.HasOne("ProiectDAW.Models.Entities.Movie", "Movie")
                         .WithOne("Trailer")
-                        .HasForeignKey("ProiectDAW.Models.Trailer", "MovieId")
+                        .HasForeignKey("ProiectDAW.Models.Entities.Trailer", "MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.User", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.User", b =>
                 {
-                    b.HasOne("ProiectDAW.Models.Role", "Role")
+                    b.HasOne("ProiectDAW.Models.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -272,15 +364,15 @@ namespace ProiectDAW.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.WatchList", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.WatchList", b =>
                 {
-                    b.HasOne("ProiectDAW.Models.Movie", "Movie")
+                    b.HasOne("ProiectDAW.Models.Entities.Movie", "Movie")
                         .WithMany("WatchLists")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProiectDAW.Models.User", "User")
+                    b.HasOne("ProiectDAW.Models.Entities.User", "User")
                         .WithMany("WatchLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,12 +383,12 @@ namespace ProiectDAW.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Genre", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Genre", b =>
                 {
                     b.Navigation("MovieGenres");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Movie", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Movie", b =>
                 {
                     b.Navigation("MovieGenres");
 
@@ -305,12 +397,12 @@ namespace ProiectDAW.Migrations
                     b.Navigation("WatchLists");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.Role", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("ProiectDAW.Models.User", b =>
+            modelBuilder.Entity("ProiectDAW.Models.Entities.User", b =>
                 {
                     b.Navigation("WatchLists");
                 });

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.UserRepo
 {
-    interface IUserRepository:IGenericRepository<User>
+    public interface IUserRepository:IGenericRepository<User>
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.MovieGenreRepo
 {
-    interface IMovieGenreRepository
+    public interface IMovieGenreRepository
     {
         // Get all data
         Task<List<MovieGenre>> GetAll();

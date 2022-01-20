@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.WatchListRepo
 {
-    interface IWatchListRepository
+    public interface IWatchListRepository
     {
         // Get all data
         Task<List<WatchList>> GetAll();

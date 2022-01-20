@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.GenreRepo
 {
-    interface IGenreRepository
+    public interface IGenreRepository
     {
         // Get all data
         Task<List<Genre>> GetAll();

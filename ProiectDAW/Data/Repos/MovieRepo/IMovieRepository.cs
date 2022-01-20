@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.MovieRepo
 {
-    interface IMovieRepository: IGenericRepository<Movie>
+    public interface IMovieRepository: IGenericRepository<Movie>
     {
     }
 }

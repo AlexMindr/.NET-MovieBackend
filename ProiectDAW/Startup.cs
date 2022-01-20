@@ -16,7 +16,11 @@ using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Utilities;
 using ProiectDAW.Data.Services;
 using ProiectDAW.Utilities.JWTUtilis;
-
+using ProiectDAW.Data.Repos.MovieRepo;
+using ProiectDAW.Data.Repos.GenreRepo;
+using ProiectDAW.Data.Repos.TrailerRepo;
+using ProiectDAW.Data.Repos.WatchListRepo;
+using ProiectDAW.Data.Repos.MovieGenreRepo;
 
 namespace ProiectDAW
 {
@@ -43,6 +47,12 @@ namespace ProiectDAW
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IJWTUtils, JWTUtils>();
             services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IMovieService, MovieService>();
+            //services.AddScoped<IGenreRepository, GenreRepository>();
+           // services.AddScoped<ITrailerRepository, TrailerRepository>();
+            //services.AddScoped<IWatchListRepository, WatchListRepository>();
+            //services.AddScoped<IMovieGenreRepository, MovieRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
