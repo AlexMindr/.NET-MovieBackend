@@ -1,4 +1,5 @@
-﻿using ProiectDAW.Data.Repos.MovieRepo;
+﻿using ProiectDAW.Data.Repos.GenreRepo;
+using ProiectDAW.Data.Repos.MovieRepo;
 using ProiectDAW.Models.DTOs;
 using ProiectDAW.Models.Entities;
 using System;
@@ -11,10 +12,12 @@ namespace ProiectDAW.Data.Services
     public class MovieService:IMovieService
     {
         public IMovieRepository _movie;
+        public IGenreRepository _genre;
 
-        public MovieService(IMovieRepository movie)
+        public MovieService(IMovieRepository movie, IGenreRepository genre)
         {
             _movie = movie;
+            _genre = genre;
         }
 
         public async Task CreateAsync(MovieDTO entity)
@@ -49,15 +52,58 @@ namespace ProiectDAW.Data.Services
         }
 
         
-        public IEnumerable<MovieDTO> GetAllMovies()
+        public List<MovieresDTO> GetAllMovies()
         {
-            throw new NotImplementedException();
+            var movies = _movie.GetAllMovies();
+            var list= new List<MovieresDTO>();
+            
+            foreach (Movie movie in movies)
+            {
+                var genres = _genre.GetGenresByMovieId(movie.Id);
+                list.Add(new MovieresDTO
+                {
+                    Id = movie.Id,
+                    Adult = movie.Adult,
+                    Title = movie.Title,
+                    Budget = movie.Budget,
+                    Duration = movie.Duration,
+                    ReleaseDate = movie.ReleaseDate,
+                    TrailerPath = movie.Trailer.Path,
+                    Language = movie.Language,
+                    PosterPath = movie.PosterPath,
+                    TmdbId = movie.TmdbId,
+                    Rating = movie.Rating,
+                    Genresofmovie = genres
+                });
+                
+
+            }
+            return list;
         }
 
    
-        public MovieDTO GetByTitle(string title)
+        public MovieresDTO GetByTitle(string title)
         {
-            throw new NotImplementedException();
+            var res =_movie.FindByName(title);
+            var genres = _genre.GetGenresByMovieId(res.Id);
+            MovieresDTO movie = new()
+            {
+                Adult = res.Adult,
+                Duration=res.Duration,
+                Title=res.Title,
+                PosterPath=res.PosterPath,
+                Language=res.Language,
+                Budget=res.Budget,
+                ReleaseDate=res.ReleaseDate,
+                Id=res.Id,
+                Rating=res.Rating,
+                TmdbId=res.TmdbId,
+                TrailerPath=res.Trailer.Path,
+                Genresofmovie=genres
+            };
+            
+            return movie;
+            
         }
     }
 }

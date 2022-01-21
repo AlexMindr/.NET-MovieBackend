@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Models;
+using ProiectDAW.Models.DTOs;
 using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
     {
         protected readonly ProjectContext _context;
         protected readonly DbSet<WatchList> _table;
+        protected readonly DbSet<Movie> _movie;
 
         public WatchListRepository(ProjectContext context)
         {
             _context = context;
             _table = _context.Set<WatchList>();
+            _movie= _context.Set<Movie>();
         }
 
         // Get all
@@ -111,6 +114,43 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
             //}
 
             // return false;
+        }
+
+        public WatchListDTO GetMovieNamesList(object id)
+        {
+            var table =_table.Join(_movie,x=>x.MovieId,y=>y.Id,(x,y)=> new { 
+            x.UserId,
+            x.Rating,
+            x.Status,
+            y.Title,
+            y.Id
+            }).Where(x=>x.UserId.Equals(id)).ToList();
+
+            var movies = new List<Guid>();
+            var movienames = new List<string>();
+            var statuses = new List<string>();
+            var ratings = new List<int>();
+
+            foreach (var el in table)
+            {
+                movies.Add(el.Id);
+                movienames.Add(el.Title);
+                statuses.Add(el.Status);
+                ratings.Add((int)el.Rating);
+                
+            };
+
+
+            var res = new WatchListDTO(){
+                userId = (Guid)id,
+                movieids=movies,
+                names=movienames,
+                statuses=statuses,
+                ratings=ratings
+
+            }; 
+            
+            return res;
         }
     }
 }

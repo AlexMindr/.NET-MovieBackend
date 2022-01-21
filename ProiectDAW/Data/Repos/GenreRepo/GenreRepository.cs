@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.GenreRepo
 {
-    public class GenreRepository
+    public class GenreRepository:IGenreRepository
     {
         protected readonly ProjectContext _context;
         protected readonly DbSet<Genre> _table;
-
+        protected readonly DbSet<MovieGenre> _moviegenre;
         public GenreRepository(ProjectContext context)
         {
             _context = context;
             _table = _context.Set<Genre>();
+            _moviegenre = _context.Set<MovieGenre>();
         }
 
         // Get all
@@ -32,13 +33,6 @@ namespace ProiectDAW.Data.Repos.GenreRepo
         {
             return _table.AsNoTracking();
 
-            // try not to use toList, count etc, before filtering the data
-            // var entityList = _table.ToList();
-            // var entityListFiltered = _table.Where(x => x.Id.ToString() != "");
-
-            // better version; the data is filtered in the query 
-            // select * from entity where Id is not null
-            // var entitylistFiltered = _table.Where(x => x.Id.ToString() != "").ToList();
         }
 
 
@@ -46,6 +40,8 @@ namespace ProiectDAW.Data.Repos.GenreRepo
 
         public async Task CreateAsync(Genre entity)
         {
+            entity.DateCreated = DateTime.UtcNow;
+            entity.DateModified = DateTime.UtcNow;
             await _table.AddAsync(entity);
         }
 
@@ -54,6 +50,8 @@ namespace ProiectDAW.Data.Repos.GenreRepo
 
         public void Update(Genre entity)
         {
+
+            entity.DateModified = DateTime.UtcNow;
             _table.Update(entity);
         }
 
@@ -72,8 +70,6 @@ namespace ProiectDAW.Data.Repos.GenreRepo
         {
             return _table.Find(id);
 
-            // another option
-            // return _table.FirstOrDefault(x=> x.Id.Equals(id));
         }
 
         public async Task<Genre> FindByIdAsync(object id)
@@ -113,6 +109,25 @@ namespace ProiectDAW.Data.Repos.GenreRepo
 
             // return false;
         }
+
+        
+
+        public List<string> GetGenresByMovieId(object id) 
+        {
+
+            var joined = _table.Join(_moviegenre, g => g.Id, mg => mg.GenreId, (g, mg) => new {
+            g.Name,
+            mg.MovieId
+            });
+
+            var res = joined.Where(x => x.MovieId.Equals(id))
+                            .Select(x => x.Name).ToList();
+                
+
+            return res;
+        }
+
+
 
     }
 }

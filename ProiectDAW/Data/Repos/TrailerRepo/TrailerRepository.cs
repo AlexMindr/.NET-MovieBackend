@@ -45,6 +45,9 @@ namespace ProiectDAW.Data.Repos.TrailerRepo
 
         public async Task CreateAsync(Trailer entity)
         {
+
+            entity.DateCreated = DateTime.UtcNow;
+            entity.DateModified = DateTime.UtcNow;
             await _table.AddAsync(entity);
         }
 
@@ -53,6 +56,8 @@ namespace ProiectDAW.Data.Repos.TrailerRepo
 
         public void Update(Trailer entity)
         {
+
+            entity.DateModified = DateTime.UtcNow;
             _table.Update(entity);
         }
 

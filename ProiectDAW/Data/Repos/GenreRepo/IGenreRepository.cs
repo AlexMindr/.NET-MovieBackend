@@ -30,5 +30,7 @@ namespace ProiectDAW.Data.Repos.GenreRepo
         bool Save();
         Task<bool> SaveAsync();
 
+        List<string> GetGenresByMovieId(object id);
+
     }
 }

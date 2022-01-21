@@ -1,14 +1,15 @@
 ﻿/*using ProiectDAW.Models;
-using ProiectDAW.Repositories.GenericRepository;
+using ProiectDAW.Repositories.GenericRepo;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectDAW.Models.Entities;
 
 namespace ProiectDAW.Repositories.DatabaseRepository
 {
-    public class DatabaseRepository: GenericRepository<Student>, IDatabaseRepository
+    public class DatabaseRepository: GenericRepository<Movie>
     {
         public DatabaseRepository(ProjectContext context) : base(context)
         {

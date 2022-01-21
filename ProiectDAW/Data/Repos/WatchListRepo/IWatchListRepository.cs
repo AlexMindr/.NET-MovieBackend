@@ -1,4 +1,5 @@
 ﻿using ProiectDAW.Models;
+using ProiectDAW.Models.DTOs;
 using ProiectDAW.Models.Entities;
 using ProiectDAW.Repositories.GenericRepo;
 using System;
@@ -29,5 +30,7 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
         // Save
         bool Save();
         Task<bool> SaveAsync();
+
+        WatchListDTO GetMovieNamesList(object id);
     }
 }

@@ -49,9 +49,9 @@ namespace ProiectDAW
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IMovieService, MovieService>();
-            //services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddTransient<IGenreRepository, GenreRepository>();
            // services.AddScoped<ITrailerRepository, TrailerRepository>();
-            //services.AddScoped<IWatchListRepository, WatchListRepository>();
+            //services.AddTransient<IWatchListRepository, WatchListRepository>();
             //services.AddScoped<IMovieGenreRepository, MovieRepository>();
         }
 

@@ -27,5 +27,19 @@ namespace ProiectDAW.Controllers
             // should use context to add the user to db
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult GetByName(string title) 
+        {
+            var res = _movieService.GetByTitle(title);
+            
+            return Ok(res.Id);
+        }
+
+        [HttpGet("all")]
+        public IActionResult GetAll() 
+        {
+            return Ok(_movieService.GetAllMovies());
+        }
     }
 }

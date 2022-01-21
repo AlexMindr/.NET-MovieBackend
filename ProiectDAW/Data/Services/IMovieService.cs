@@ -1,4 +1,5 @@
 ﻿using ProiectDAW.Models.DTOs;
+using ProiectDAW.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace ProiectDAW.Data.Services
     public interface IMovieService
     {
         Task CreateAsync(MovieDTO entity);
-        IEnumerable<MovieDTO> GetAllMovies();
-        MovieDTO GetByTitle(string title);
+        List<MovieresDTO> GetAllMovies();
+        MovieresDTO GetByTitle(string title);
+        //Task Update(MovieDTO entity);
+        //Task Delete(MovieDTO entity);
     }
 }

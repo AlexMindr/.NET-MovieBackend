@@ -46,7 +46,9 @@ namespace ProiectDAW.Repositories.GenericRepo
 
         public async Task CreateAsync(TEntity entity)
         {
-             await _table.AddAsync(entity);
+            entity.DateCreated = DateTime.UtcNow;
+            entity.DateModified = DateTime.UtcNow;
+            await _table.AddAsync(entity);
         }
 
 
@@ -54,6 +56,7 @@ namespace ProiectDAW.Repositories.GenericRepo
 
         public void Update(TEntity entity)
         {
+            entity.DateModified = DateTime.UtcNow;
             _table.Update(entity);
         }
 
