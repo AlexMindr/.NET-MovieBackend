@@ -29,11 +29,9 @@ namespace ProiectDAW.Data.Services
             await _watchlist.SaveAsync();
         }
 
-        public WatchListDTO GetList(object userId)
+        public List<WatchListItemDTO> GetWatchList(object userId)
         {
-            var res = _watchlist.GetMovieNamesList(userId);
-           
-                return res;
+            return _watchlist.GetMovieNamesList(userId);
         }
         
     }

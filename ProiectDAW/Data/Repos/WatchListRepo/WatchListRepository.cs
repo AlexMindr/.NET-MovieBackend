@@ -116,7 +116,7 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
             // return false;
         }
 
-        public WatchListDTO GetMovieNamesList(object id)
+        public List<WatchListItemDTO> GetMovieNamesList(object id)
         {
             var table =_table.Join(_movie,x=>x.MovieId,y=>y.Id,(x,y)=> new { 
             x.UserId,
@@ -126,31 +126,26 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
             y.Id
             }).Where(x=>x.UserId.Equals(id)).ToList();
 
-            var movies = new List<Guid>();
-            var movienames = new List<string>();
-            var statuses = new List<string>();
-            var ratings = new List<int>();
+            var watchlist = new List<WatchListItemDTO>();
 
             foreach (var el in table)
             {
-                movies.Add(el.Id);
-                movienames.Add(el.Title);
-                statuses.Add(el.Status);
-                ratings.Add((int)el.Rating);
-                
+                var obj = new WatchListItemDTO
+                {
+                    userId = el.UserId,
+                    movieId=el.Id,
+                    Title=el.Title,
+                    Status=el.Status,
+                    Rating= (int)el.Rating
+                    
+                };
+                watchlist.Add(obj);    
             };
 
 
-            var res = new WatchListDTO(){
-                userId = (Guid)id,
-                movieids=movies,
-                names=movienames,
-                statuses=statuses,
-                ratings=ratings
-
-            }; 
             
-            return res;
+            
+            return watchlist;
         }
     }
 }

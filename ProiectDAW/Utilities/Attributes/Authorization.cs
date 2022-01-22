@@ -1,4 +1,4 @@
-﻿/*using ProiectDAW.Models;
+﻿using ProiectDAW.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectDAW.Models.Entities;
 
 namespace ProiectDAW.Utilities.Attributes
 {
     public class AuthorizationAttribute: Attribute, IAuthorizationFilter
     {
-        private readonly ICollection<Role> _roles;
-        public AuthorizationAttribute(params Role[] roles)
+        private readonly string[] _roles;
+        public AuthorizationAttribute(params string[] roles)
         {
             _roles = roles;
         }
@@ -30,7 +31,7 @@ namespace ProiectDAW.Utilities.Attributes
             }
 
             var user = (User)context.HttpContext.Items["User"];
-            if(user == null || !_roles.Contains(user.Role))
+            if(user == null || !_roles.Contains(user.Role.Name))
             {
                 context.Result = unauthorizedStatusCodeObject;
             }
@@ -38,4 +39,3 @@ namespace ProiectDAW.Utilities.Attributes
         }
     }
 }
-*/

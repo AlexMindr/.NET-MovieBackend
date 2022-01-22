@@ -2,13 +2,14 @@
 using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
 using ProiectDAW.Data.Services;
-//using ProiectDAW.Utilities.Attributes;
-using BCryptNet = BCrypt.Net.BCrypt;
+using ProiectDAW.Utilities.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProiectDAW.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ProiectDAW.Controllers
 {
@@ -23,11 +24,11 @@ namespace ProiectDAW.Controllers
             _userService = userService;
         }
 
-
+        [AllowAnonymous]
         [HttpPost("authentificate")]
         public IActionResult Authentificate(UserRequestDTO user)
         {
-            var response = _userService.Authentificate(user);
+            var response = _userService.Authenticate(user);
 
             if (response == null)
             {
@@ -37,26 +38,35 @@ namespace ProiectDAW.Controllers
             return Ok(response);
         }
 
-        [HttpPost("create")]
-        public IActionResult Create(UserRequestDTO user)
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Create(UserRegisterDTO user)
         {
-            var userToCreate = new User
-            {
-                FirstName = user.FirstName,
-                //Role = Role.User,
-                PasswordHash = BCryptNet.HashPassword(user.Password)
-            };
-
-            // should use context to add the user to db
-            return Ok();
+            var usr=_userService.Create(user);
+            return Ok(usr);
         }
 
-        //[Authorization(Role.Admin)]
+        [Authorization("Admin")]
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public IActionResult GetAll()
         {
             var users = _userService.GetAllUsers();
             return Ok(users);
+        }
+        [Authorization("Admin","User")]
+        [HttpPut]
+        public IActionResult Update([FromForm]UserUpdateDTO user)
+        {
+            _userService.Update(user);
+            return Ok();
+        }
+
+        [Authorization("Admin")]
+        [HttpDelete]
+        public IActionResult Delete(Guid id)
+        {
+            _userService.Delete(id);
+            return Ok();
         }
     }
 }

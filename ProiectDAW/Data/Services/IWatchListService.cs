@@ -9,6 +9,6 @@ namespace ProiectDAW.Data.Services
    public interface IWatchListService
     {
         Task Add(object userId, object movieId,int rating, string status);
-        WatchListDTO GetList(object userId);
+        List<WatchListItemDTO> GetWatchList(object userId);
     }
 }

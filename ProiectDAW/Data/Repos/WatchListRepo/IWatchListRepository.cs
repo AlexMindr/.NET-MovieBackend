@@ -31,6 +31,6 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
         bool Save();
         Task<bool> SaveAsync();
 
-        WatchListDTO GetMovieNamesList(object id);
+        List<WatchListItemDTO> GetMovieNamesList(object id);
     }
 }

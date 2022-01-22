@@ -10,5 +10,7 @@ namespace ProiectDAW.Data.Repos.UserRepo
 {
     public interface IUserRepository:IGenericRepository<User>
     {
+        User GetForAuth(object username);
+        string GetUserRole(object id);
     }
 }
