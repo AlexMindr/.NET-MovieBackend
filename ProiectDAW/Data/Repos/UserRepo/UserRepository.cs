@@ -18,9 +18,23 @@ namespace ProiectDAW.Data.Repos.UserRepo
         }
 
         public User GetForAuth(object username)
-        {
-            return (User)_table.Where(x => x.Username.Equals((string)username))
-                         .Select(x => new { x.Id,x.FirstName,x.LastName,x.PasswordHash,x.Username});
+        {   
+            var res= _table.Where(x => x.Username.Equals((string)username))
+                         .Select(x=>new { x.Id,x.Username,x.PasswordHash,x.FirstName,x.LastName})
+                         .FirstOrDefault();
+            
+            if (res != null) 
+            {
+                return new User
+                {
+                    Id = res.Id,
+                    Username = res.Username,
+                    PasswordHash = res.PasswordHash,
+                    FirstName = res.FirstName,
+                    LastName = res.LastName
+                };
+            }
+            return null;
         }
 
         public string GetUserRole(object id)

@@ -56,20 +56,27 @@ namespace ProiectDAW.Data.Services
             return _users.GetUserRole(id);
         }
 
-        public async Task Create(UserRegisterDTO user)
+        public bool Create(UserRegisterDTO user)
         {
-            var usr = new User
-            {
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                PasswordHash = BCryptNet.HashPassword(user.Password),
-                RoleId = 2
+            var searchus = _users.GetForAuth(user.Username);
+            if (searchus == null) {
+                var usr = new User
+                {
+                    Username = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    PasswordHash = BCryptNet.HashPassword(user.Password),
+                    RoleId = 2
 
-            };
-            await _users.CreateAsync(usr);
-            await _users.SaveAsync();
+                };
+                 _users.CreateAsync(usr);
+                 _users.SaveAsync();
+                return true;
+            }
+            return false;
+            
+            
         }
 
         public void Update(UserUpdateDTO user)

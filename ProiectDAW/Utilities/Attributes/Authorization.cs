@@ -16,6 +16,8 @@ namespace ProiectDAW.Utilities.Attributes
         public AuthorizationAttribute(params string[] roles)
         {
             _roles = roles;
+            
+            
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -31,6 +33,9 @@ namespace ProiectDAW.Utilities.Attributes
             }
 
             var user = (User)context.HttpContext.Items["User"];
+            /*if (user.RoleId == 1) user.Role.Name = "Admin";
+            else user.Role.Name = "User";*/
+            //Console.Write(_roles.Contains(user.Role.Name));
             if(user == null || !_roles.Contains(user.Role.Name))
             {
                 context.Result = unauthorizedStatusCodeObject;

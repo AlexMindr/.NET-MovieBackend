@@ -21,11 +21,13 @@ using ProiectDAW.Data.Repos.GenreRepo;
 using ProiectDAW.Data.Repos.TrailerRepo;
 using ProiectDAW.Data.Repos.WatchListRepo;
 using ProiectDAW.Data.Repos.MovieGenreRepo;
+using ProiectDAW.Data.Repos.UserRepo;
 
 namespace ProiectDAW
 {
     public class Startup
     {
+        private readonly string CorsAllowSpecifcOrigin="front";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,9 +52,18 @@ namespace ProiectDAW
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IGenreRepository, GenreRepository>();
-           // services.AddScoped<ITrailerRepository, TrailerRepository>();
-            //services.AddTransient<IWatchListRepository, WatchListRepository>();
-            //services.AddScoped<IMovieGenreRepository, MovieRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IWatchListRepository, WatchListRepository>();
+            services.AddTransient<IWatchListService, WatchListService>();
+
+            /*services.AddCors(options =>
+
+                options.AddPolicy(name: CorsAllowSpecifcOrigin, builder =>
+            {
+                builder.WithOrigins("https://localhost:5000").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
+            }
+            ));*/
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +75,7 @@ namespace ProiectDAW
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProiectDAW v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

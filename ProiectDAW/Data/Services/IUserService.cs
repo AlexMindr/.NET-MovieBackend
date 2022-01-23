@@ -14,7 +14,7 @@ namespace ProiectDAW.Data.Services
         Task<IEnumerable<User>> GetAllUsers();
         User GetById(Guid id);
         string GetRole(Guid id);
-        Task Create(UserRegisterDTO user);
+        bool Create(UserRegisterDTO user);
         void Update(UserUpdateDTO user);
         void Delete(Guid id);
     }

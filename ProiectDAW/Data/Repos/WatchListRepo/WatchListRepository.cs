@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProiectDAW.Data.Repos.WatchListRepo
 {
-    public class WatchListRepository
+    public class WatchListRepository:IWatchListRepository
     {
         protected readonly ProjectContext _context;
         protected readonly DbSet<WatchList> _table;

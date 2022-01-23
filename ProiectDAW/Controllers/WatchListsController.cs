@@ -12,22 +12,29 @@ namespace ProiectDAW.Controllers
     public class WatchListsController : ControllerBase
     {
         public IWatchListService _watchlist;
-
-        public WatchListsController(IWatchListService watchlist)
+        public IUserService _users;
+        public WatchListsController(IWatchListService watchlist,IUserService users)
         {
             _watchlist = watchlist;
+            _users = users;
         }
 
 
 
         [HttpGet("list")]
-        public IActionResult GetListForUser(string username)
+        public IActionResult GetListForUser(Guid id)
         {
-            var userId = username;
-            //var userId = HttpContext.User;
-            var res = _watchlist.GetWatchList(userId);
-            if (res!=null) { Ok(res); }
-            else { Ok("No items added to list"); }
+            
+            var res = _watchlist.GetWatchList(id);
+            if (res != null) 
+            {
+                return Ok(res); 
+            }
+            else 
+            {
+                return BadRequest("No items added to list"); 
+            };
         }
+        
     }
 }

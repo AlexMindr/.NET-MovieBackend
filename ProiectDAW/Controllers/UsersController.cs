@@ -25,7 +25,7 @@ namespace ProiectDAW.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authentificate")]
+        [HttpPost("authenticate")]
         public IActionResult Authentificate(UserRequestDTO user)
         {
             var response = _userService.Authenticate(user);
@@ -43,7 +43,10 @@ namespace ProiectDAW.Controllers
         public IActionResult Create(UserRegisterDTO user)
         {
             var usr=_userService.Create(user);
-            return Ok(usr);
+            if (usr == true)
+                return Ok(usr);
+            else
+                return BadRequest(new { Message = "Username already taken!" });
         }
 
         [Authorization("Admin")]
@@ -53,12 +56,15 @@ namespace ProiectDAW.Controllers
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
-        [Authorization("Admin","User")]
+        [Authorization("Admin")]
         [HttpPut]
         public IActionResult Update([FromForm]UserUpdateDTO user)
         {
-            _userService.Update(user);
-            return Ok();
+            var id =User.Claims.First(x=>x.Type=="id").Value;
+            //Guid ids = (Guid)id;
+            //_userService.GetRole(id);
+            //_userService.Update(user);
+            return Ok(id);
         }
 
         [Authorization("Admin")]

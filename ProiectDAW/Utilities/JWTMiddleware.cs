@@ -25,10 +25,11 @@ namespace ProiectDAW.Utilities
             var token = httpContext.Request.Headers["Autorization"].FirstOrDefault()?.Split("").Last();
 
             var userId = jWTUtils.ValidateJWTToken(token);
-
+            Console.Write("USER ID" + userId);
             if(userId != Guid.Empty)
             {
                 httpContext.Items["User"] = userService.GetById(userId);
+                //Console.WriteLine(userService.GetById(userId));
             }
 
             await _next(httpContext);
