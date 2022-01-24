@@ -18,34 +18,32 @@ namespace ProiectDAW
 
         }
 
-        // One to Many
         public DbSet<User> Users { get; set; }
-        //public DbSet<Role> Roles { get; set; }
-
+        
         // One to One
-        ///public DbSet<Movie> Movies { get; set; }
-        ///public DbSet<Trailer> Trailers { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Trailer> Trailers { get; set; }
 
-        ///public DbSet<Genre> Genres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         // Many to Many
         //public DbSet<User> Users { get; set; }
         //public DbSet<Movie> Movies { get; set; }
 
-        ///public DbSet<WatchList> WatchLists { get; set; }
+        public DbSet<WatchList> WatchLists { get; set; }
 
         // Many to Many
         //public DbSet<Genre> Genres { get; set; }
         //public DbSet<Movie> Movies { get; set; }
 
-        ///public DbSet<MovieGenre> MovieGenres { get; set; }
+        public DbSet<MovieGenre> MovieGenres { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("Users", "dbo");
-            /* modelBuilder.Entity<Movie>().ToTable("Movies", "dbo");
+            modelBuilder.Entity<Movie>().ToTable("Movies", "dbo");
             modelBuilder.Entity<Trailer>().ToTable("Trailers", "dbo");
             modelBuilder.Entity<Genre>().ToTable("Genres", "dbo");
             modelBuilder.Entity<WatchList>().ToTable("WatchLists", "dbo");
@@ -106,7 +104,7 @@ namespace ProiectDAW
                 new Genre { Id = 10752, Name = "War" },
                 new Genre { Id = 37, Name = "Western" }
             );
-            */
+            
 
             base.OnModelCreating(modelBuilder);
         }

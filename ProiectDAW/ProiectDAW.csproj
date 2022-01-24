@@ -5,29 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Repos\GenreRepo\**" />
-    <Compile Remove="Data\Repos\MovieGenreRepo\**" />
-    <Compile Remove="Data\Repos\MovieRepo\**" />
-    <Compile Remove="Data\Repos\TrailerRepo\**" />
-    <Compile Remove="Data\Repos\WatchListRepo\**" />
-    <Content Remove="Data\Repos\GenreRepo\**" />
-    <Content Remove="Data\Repos\MovieGenreRepo\**" />
-    <Content Remove="Data\Repos\MovieRepo\**" />
-    <Content Remove="Data\Repos\TrailerRepo\**" />
-    <Content Remove="Data\Repos\WatchListRepo\**" />
-    <EmbeddedResource Remove="Data\Repos\GenreRepo\**" />
-    <EmbeddedResource Remove="Data\Repos\MovieGenreRepo\**" />
-    <EmbeddedResource Remove="Data\Repos\MovieRepo\**" />
-    <EmbeddedResource Remove="Data\Repos\TrailerRepo\**" />
-    <EmbeddedResource Remove="Data\Repos\WatchListRepo\**" />
-    <None Remove="Data\Repos\GenreRepo\**" />
-    <None Remove="Data\Repos\MovieGenreRepo\**" />
-    <None Remove="Data\Repos\MovieRepo\**" />
-    <None Remove="Data\Repos\TrailerRepo\**" />
-    <None Remove="Data\Repos\WatchListRepo\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />

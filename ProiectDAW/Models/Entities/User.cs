@@ -23,8 +23,8 @@ namespace ProiectDAW.Models.Entities
         [JsonIgnore]
         public string PasswordHash { get; set; }
 
-        //public virtual ICollection<WatchList> WatchLists { get; set; }
         public string Role { get; set; }
+        public virtual ICollection<WatchList> WatchLists { get; set; }
 
     }
 }
