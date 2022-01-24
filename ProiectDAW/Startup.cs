@@ -13,15 +13,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProiectDAW.Utilities;
 using ProiectDAW.Data.Services;
-using ProiectDAW.Utilities.JWTUtilis;
-using ProiectDAW.Data.Repos.MovieRepo;
-using ProiectDAW.Data.Repos.GenreRepo;
-using ProiectDAW.Data.Repos.TrailerRepo;
-using ProiectDAW.Data.Repos.WatchListRepo;
-using ProiectDAW.Data.Repos.MovieGenreRepo;
+//using ProiectDAW.Data.Repos.MovieRepo;
+//using ProiectDAW.Data.Repos.GenreRepo;
+//using ProiectDAW.Data.Repos.TrailerRepo;
+//using ProiectDAW.Data.Repos.WatchListRepo;
+//using ProiectDAW.Data.Repos.MovieGenreRepo;
 using ProiectDAW.Data.Repos.UserRepo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ProiectDAW
 {
@@ -45,18 +46,33 @@ namespace ProiectDAW
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProiectDAW", Version = "v1" });
             });
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                 .AddJwtBearer(options => {
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateIssuer = true,
+                         ValidateAudience = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+                         ValidIssuer = Configuration["Jwt:Issuer"],
+                         ValidAudience = Configuration["Jwt:Audience"],
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                     };
+                 });
+            services.AddMvc();
+
+
             services.AddDbContext<ProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddScoped<IJWTUtils, JWTUtils>();
             services.AddScoped<IUserService, UserService>();
-            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
+            /*services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IGenreRepository, GenreRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IWatchListRepository, WatchListRepository>();
             services.AddTransient<IWatchListService, WatchListService>();
 
-            /*services.AddCors(options =>
+            services.AddCors(options =>
 
                 options.AddPolicy(name: CorsAllowSpecifcOrigin, builder =>
             {
@@ -80,10 +96,9 @@ namespace ProiectDAW
 
             app.UseRouting();
 
-            app.UseMiddleware<JWTMiddleware>();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

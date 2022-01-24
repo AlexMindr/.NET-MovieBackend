@@ -11,7 +11,6 @@ namespace ProiectDAW.Data.Repos.UserRepo
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        protected readonly DbSet<Role> _roles;
         public UserRepository(ProjectContext context) : base(context)
         {
 
@@ -20,7 +19,7 @@ namespace ProiectDAW.Data.Repos.UserRepo
         public User GetForAuth(object username)
         {   
             var res= _table.Where(x => x.Username.Equals((string)username))
-                         .Select(x=>new { x.Id,x.Username,x.PasswordHash,x.FirstName,x.LastName})
+                         .Select(x=>new { x.Id,x.Username,x.PasswordHash,x.FirstName,x.LastName,x.Role})
                          .FirstOrDefault();
             
             if (res != null) 
@@ -31,23 +30,22 @@ namespace ProiectDAW.Data.Repos.UserRepo
                     Username = res.Username,
                     PasswordHash = res.PasswordHash,
                     FirstName = res.FirstName,
-                    LastName = res.LastName
+                    LastName = res.LastName,
+                    Role=res.Role
                 };
             }
             return null;
         }
 
-        public string GetUserRole(object id)
-        {
-            var table = _table.Join(_roles, x => x.RoleId, y => y.Id, (x, y) => new
-            {
-                x.Id,
-                y.Name
-            });
+        
 
-            var res = table.Where(x => x.Id.Equals(id))
-                           .Select(x=>x.Name).ToList();
+        public string GetUserRole(object id) 
+        {
+            var res = _table.Where(x => x.Id.Equals(id))
+                  .Select(x => x.Role).ToList();
+
             return res[0];
         }
+
     }
 }

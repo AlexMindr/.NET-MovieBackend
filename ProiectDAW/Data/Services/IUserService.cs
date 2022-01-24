@@ -10,7 +10,7 @@ namespace ProiectDAW.Data.Services
 {
     public interface IUserService
     {
-        UserResponseDTO Authenticate(UserRequestDTO model);
+        User Authenticate(UserAuthDTO model);
         Task<IEnumerable<User>> GetAllUsers();
         User GetById(Guid id);
         string GetRole(Guid id);

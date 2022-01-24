@@ -2,7 +2,7 @@
 
 namespace ProiectDAW.Models.DTOs
 {
-    public class UserRequestDTO
+    public class UserAuthDTO
     {
         [Required]
         public string Username { get; set; }

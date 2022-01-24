@@ -15,6 +15,7 @@ namespace ProiectDAW.Models.DTOs
 
         public string Username { get; set; }
         public string Token { get; set; }
+        public string Role { get; set; }
 
 
         public UserResponseDTO(User user, string token)
@@ -24,6 +25,7 @@ namespace ProiectDAW.Models.DTOs
             LastName = user.LastName;
             Username = user.Username;
             Token = token;
+            Role = user.Role;
         }
     }
 }

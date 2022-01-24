@@ -2,14 +2,14 @@
 using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
 using ProiectDAW.Data.Services;
-using ProiectDAW.Utilities.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProiectDAW.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace ProiectDAW.Controllers
 {
@@ -24,19 +24,7 @@ namespace ProiectDAW.Controllers
             _userService = userService;
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Authentificate(UserRequestDTO user)
-        {
-            var response = _userService.Authenticate(user);
-
-            if (response == null)
-            {
-                return BadRequest(new { Message = "Username or Password is invalid!" });
-            }
-
-            return Ok(response);
-        }
+        
 
         [AllowAnonymous]
         [HttpPost("register")]
@@ -49,30 +37,68 @@ namespace ProiectDAW.Controllers
                 return BadRequest(new { Message = "Username already taken!" });
         }
 
-        [Authorization("Admin")]
-        [HttpGet]
-        public IActionResult GetAll()
+        [Authorize()]
+        [HttpGet("info")]
+        public IActionResult Info()
         {
-            var users = _userService.GetAllUsers();
-            return Ok(users);
-        }
-        [Authorization("Admin")]
-        [HttpPut]
-        public IActionResult Update([FromForm]UserUpdateDTO user)
-        {
-            var id =User.Claims.First(x=>x.Type=="id").Value;
-            //Guid ids = (Guid)id;
-            //_userService.GetRole(id);
-            //_userService.Update(user);
-            return Ok(id);
+            var currentUser = GetCurrentUser();
+
+            return Ok($"Hi {currentUser.Username}, you are an {currentUser.Role}");
         }
 
-        [Authorization("Admin")]
-        [HttpDelete]
+
+        [Authorize()]
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll()
+        {
+            var role = GetCurrentUser().Role;
+            if (role == "Administrator")
+            {
+                var users =await _userService.GetAllUsers();
+                return Ok(users);
+            }
+            else return Unauthorized();
+        }
+
+        [Authorize]
+        [HttpPut("update")]
+        public IActionResult Update([FromBody]UserUpdateDTO user)
+        {
+            //var id = GetCurrentUser().Id;
+            
+            _userService.Update(user);
+            return Ok("Success");
+        }
+
+        [Authorize()]
+        [HttpDelete("/delete/{id:int}")]
         public IActionResult Delete(Guid id)
         {
-            _userService.Delete(id);
-            return Ok();
+            var role = GetCurrentUser().Role;
+            if (role == "Administrator")
+            {
+                _userService.Delete(id);
+                return Ok("User deleted");
+            }
+            else return Unauthorized();
+        }
+
+        private User GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new User
+                {
+                    Username = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                    Role = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value,
+                    Id= Guid.Parse(userClaims.FirstOrDefault(o=>o.Type=="id")?.Value)
+                };
+            }
+            return null;
         }
     }
 }

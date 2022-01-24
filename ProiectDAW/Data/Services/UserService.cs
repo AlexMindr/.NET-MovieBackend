@@ -1,7 +1,5 @@
 ﻿using ProiectDAW.Models;
 using ProiectDAW.Models.DTOs;
-using ProiectDAW.Utilities;
-using ProiectDAW.Utilities.JWTUtilis;
 using BCryptNet = BCrypt.Net.BCrypt;
 using Microsoft.Extensions.Options;
 using System;
@@ -17,18 +15,16 @@ namespace ProiectDAW.Data.Services
     {
 
         private IUserRepository _users;
-        private IJWTUtils _iJWtUtils;
-        private readonly AppSettings _appSettings;
+        
 
-        public UserService(IUserRepository users, IJWTUtils iJWtUtils, IOptions<AppSettings> appSettings)
+        public UserService(IUserRepository users)
         {
             _users = users;
-            _iJWtUtils = iJWtUtils;
-            _appSettings = appSettings.Value;
+        
         }
 
 
-        public UserResponseDTO Authenticate(UserRequestDTO model)
+        public User Authenticate(UserAuthDTO model)
         {
             var user  = _users.GetForAuth(model.Username);
             if(user == null || !BCryptNet.Verify(model.Password, user.PasswordHash))
@@ -36,9 +32,8 @@ namespace ProiectDAW.Data.Services
                 return null; //or throw exception
             }
 
-            // jwt generation
-            var jwtToken = _iJWtUtils.GenerateJWTToken(user);
-            return new UserResponseDTO(user, jwtToken);
+            
+            return user;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
@@ -67,7 +62,7 @@ namespace ProiectDAW.Data.Services
                     LastName = user.LastName,
                     Email = user.Email,
                     PasswordHash = BCryptNet.HashPassword(user.Password),
-                    RoleId = 2
+                    Role = "User"
 
                 };
                  _users.CreateAsync(usr);
