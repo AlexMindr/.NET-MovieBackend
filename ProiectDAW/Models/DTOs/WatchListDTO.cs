@@ -7,10 +7,10 @@ namespace ProiectDAW.Models.DTOs
 {
     public class WatchListItemDTO
     {
-        public Guid userId;
-        public Guid movieId;
-        public string Status;
-        public string Title;
-        public int Rating;
+        public Guid userId { get; set; }
+        public Guid movieId { get; set; }
+        public string Status { get; set; }
+        public string Title { get; set; }
+        public int Rating { get; set; }
     }
 }

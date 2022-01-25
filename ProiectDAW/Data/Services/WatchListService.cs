@@ -36,7 +36,8 @@ namespace ProiectDAW.Data.Services
 
         public void Update(object userId, object movieId, int rating, string status)
         {
-            WatchList wl=_watchlist.FindById(((Guid)userId, (Guid)movieId));
+            WatchList wl=_watchlist.FindById(userId,movieId);
+            if (wl == null) throw new NotSupportedException("NOPE");
             wl.Rating = rating;
             wl.Status = status;
             _watchlist.Update(wl);
@@ -45,7 +46,8 @@ namespace ProiectDAW.Data.Services
 
         public void Delete(object userId, object movieId)
         {
-            WatchList wl = _watchlist.FindById(((Guid)userId, (Guid)movieId));
+            WatchList wl = _watchlist.FindById(userId,movieId);
+            if (wl == null) throw new KeyNotFoundException();
             _watchlist.Delete(wl);
             _watchlist.Save();
         }

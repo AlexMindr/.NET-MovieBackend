@@ -8,7 +8,7 @@ namespace ProiectDAW.Models.DTOs
 {
     public class MovieresDTO
     {   [Required]
-        public Guid Id;
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "AgeRange is required")]
         public bool Adult { get; set; }
 

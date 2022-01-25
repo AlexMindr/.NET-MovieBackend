@@ -14,11 +14,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProiectDAW.Data.Services;
-//using ProiectDAW.Data.Repos.MovieRepo;
-//using ProiectDAW.Data.Repos.GenreRepo;
-//using ProiectDAW.Data.Repos.TrailerRepo;
-//using ProiectDAW.Data.Repos.WatchListRepo;
-//using ProiectDAW.Data.Repos.MovieGenreRepo;
+using ProiectDAW.Data.Repos.MovieRepo;
+using ProiectDAW.Data.Repos.GenreRepo;
+using ProiectDAW.Data.Repos.TrailerRepo;
+using ProiectDAW.Data.Repos.WatchListRepo;
+using ProiectDAW.Data.Repos.MovieGenreRepo;
 using ProiectDAW.Data.Repos.UserRepo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -66,13 +66,13 @@ namespace ProiectDAW
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
 
-            /*services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IGenreRepository, GenreRepository>();
             services.AddTransient<IWatchListRepository, WatchListRepository>();
             services.AddTransient<IWatchListService, WatchListService>();
 
-            services.AddCors(options =>
+            /*services.AddCors(options =>
 
                 options.AddPolicy(name: CorsAllowSpecifcOrigin, builder =>
             {

@@ -41,7 +41,7 @@ namespace ProiectDAW.Controllers
         }
 
         [Authorize()]
-        [HttpPost]
+        [HttpPost("add")]
         public IActionResult Add([FromBody] WatchListCreateDTO watchlist)
         {
             var user = GetCurrentUser();
@@ -54,8 +54,8 @@ namespace ProiectDAW.Controllers
         }
 
         [Authorize()]
-        [HttpDelete()]
-        public IActionResult Delete([FromForm]Guid movieId) {
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromBody]Guid movieId) {
 
             var user = GetCurrentUser();
             if (user != null)
@@ -67,8 +67,8 @@ namespace ProiectDAW.Controllers
         }
 
         [Authorize()]
-        [HttpPut]
-        public IActionResult Update([FromForm] WatchListCreateDTO watchlist)
+        [HttpPut("update")]
+        public IActionResult Update([FromBody] WatchListCreateDTO watchlist)
         {
 
             var user = GetCurrentUser();

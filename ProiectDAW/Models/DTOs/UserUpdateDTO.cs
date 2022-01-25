@@ -7,7 +7,7 @@ namespace ProiectDAW.Models.DTOs
 {
     public class UserUpdateDTO
     {
-        public string Username { get; }
+        //public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

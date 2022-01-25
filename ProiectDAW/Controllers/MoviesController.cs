@@ -22,21 +22,26 @@ namespace ProiectDAW.Controllers
             _movieService = movieService;
         }
 
+
+        [Authorize()]
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] MovieDTO movie)
         {
-            await _movieService.CreateAsync(movie);
-
-            // should use context to add the user to db
-            return Ok("Movie added!");
+            var role = GetCurrentUser().Role;
+            if (role == "Administrator")
+            {
+                await _movieService.CreateAsync(movie);
+                return Ok("Movie added!");
+            }
+            return Unauthorized();
         }
 
-        [HttpGet("/getmovie")]
-        public IActionResult GetByName([FromBody]string title) 
+        [HttpGet("getmovie")]
+        public IActionResult GetByName([FromQuery]string title) 
         {
             var res = _movieService.GetByTitle(title);
             
-            return Ok(res.Id);
+            return Ok(res);
         }
 
         [HttpGet("all")]
@@ -46,13 +51,15 @@ namespace ProiectDAW.Controllers
         }
 
         [Authorize()]
-        [HttpDelete("/delete")]
-        public IActionResult Delete([FromBody]Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery]string title)
         {
             var role = GetCurrentUser().Role;
             if (role == "Administrator")
             {
-                _movieService.Delete(id);
+                var res = _movieService.GetByTitle(title);
+                
+                _movieService.Delete(res.Id);
                 return Ok("Deleted!");
             }
             return Unauthorized();
@@ -60,15 +67,16 @@ namespace ProiectDAW.Controllers
         }
 
         [Authorize()]
-        [HttpPut("/update")]
+        [HttpPut("update")]
         public IActionResult Update([FromBody] MovieresDTO movie)
         {
             var role = GetCurrentUser().Role;
             if (role == "Administrator")
             {
+                var data=_movieService.GetByTitle(movie.Title);
                 Movie mov = new Movie
                 {
-                    Id = movie.Id,
+                    Id = data.Id,
                     Adult = movie.Adult,
                     Budget = movie.Budget,
                     Duration = movie.Duration,

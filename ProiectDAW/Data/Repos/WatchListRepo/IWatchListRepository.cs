@@ -24,8 +24,8 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
         void Delete(WatchList entity);
 
         // Find
-        WatchList FindById(object id);
-        Task<WatchList> FindByIdAsync(object id);
+        WatchList FindById(object iduser,object idmovie);
+        Task<WatchList> FindByIdAsync(object iduser,object idmovie);
 
         // Save
         bool Save();

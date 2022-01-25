@@ -70,17 +70,17 @@ namespace ProiectDAW.Data.Repos.WatchListRepo
 
         // Find
 
-        public WatchList FindById(object id)
+        public WatchList FindById(object iduser,object idmovie)
         {
-            return _table.Find(id);
+            var wl = _table.Where(x => x.UserId.Equals(iduser)&&x.MovieId.Equals(idmovie)).FirstOrDefault();
+            
+            return wl;
 
-            // another option
-            // return _table.FirstOrDefault(x=> x.Id.Equals(id));
         }
 
-        public async Task<WatchList> FindByIdAsync(object id)
+        public async Task<WatchList> FindByIdAsync(object iduser,object idmovie)
         {
-            return await _table.FindAsync(id);
+            return await _table.FindAsync(iduser,idmovie);
 
             // another option
             // return await _table.FirstOrDefaultAsync(x=> x.Id.Equals(id));

@@ -64,15 +64,15 @@ namespace ProiectDAW.Controllers
         [HttpPut("update")]
         public IActionResult Update([FromBody]UserUpdateDTO user)
         {
-            //var id = GetCurrentUser().Id;
+            var id = GetCurrentUser().Id;
             
-            _userService.Update(user);
+            _userService.Update(user,id);
             return Ok("Success");
         }
 
         [Authorize()]
-        [HttpDelete("/delete/{id:int}")]
-        public IActionResult Delete(Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromBody]Guid id)
         {
             var role = GetCurrentUser().Role;
             if (role == "Administrator")
